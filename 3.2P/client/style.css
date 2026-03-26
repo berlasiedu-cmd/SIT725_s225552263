@@ -18,9 +18,9 @@ h3 {
 
 /* Image inside cards */
 .card-image img {
-  height: 200px;       /* same height for all */
+  height: 200px;       
   width: 100%;
-  object-fit: cover;   /* prevents stretching */
+  object-fit: cover;   
 }
 
 .card {
