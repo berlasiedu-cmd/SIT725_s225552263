@@ -1,16 +1,23 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Ghanaian Recipes</title>
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet">
-        <link rel="stylesheet" href="style.css">
-    </head>
-    <body>
+<!doctype html>
+<html lang="en">
+  <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <title>Ghanaian Recipes</title>
+      <meta property="og:type" content="website">
+      <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet">
+     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
 
     <!-- NAVBAR -->
     <nav>
-      <div class="nav-wrapper blue">
-        <a href="#" class="brand-logo center">Berlinda's Recipes</a>
+      <div class="nav-wrapper navbar-size green">
+        <span><img src="images/recipeslogo.png" class="logo"></span>
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+          <li><a target="_blank" href="https://www.britannica.com/place/Ghana">About Ghana</a></li>
+        </ul>
       </div>
     </nav>
 
@@ -24,6 +31,10 @@
           Welcome to my space. This is where I share awesome recipes of my favourite Ghanaian dishes.
           Try out these recipes and share your experience with the world. Happy Cooking!
         </p>
+      </div>
+
+      <div class="center">
+        <button id="openModalBtn">Sign Up</button>
       </div>
       
       <!-- SEARCH BAR -->
@@ -39,9 +50,56 @@
 
     </div>
 
+    
+  </div>
 
+                    <!-- Modal Structure -->
+            <div id="signupModal" class="modal modal-fixed-footer">
+                <div class="row modal-content">
+                    <form class="col s12">
+                        <div class="row">
+                            <div class="input-field col s6">
+                                <input placeholder="Placeholder" id="first_name" type="text" class="validate">
+                                <label for="first_name">First Name</label>
+                            </div>
+                            <div class="input-field col s6">
+                                <input id="last_name" type="text" class="validate">
+                                <label for="last_name">Last Name</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <input id="email" type="email" class="validate">
+                                <label for="email">Email</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <input id="password" type="password" class="validate">
+                                <label for="password">Password</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <input id="confpassword" type="password" class="validate">
+                                <label for="confpassword">Confirm Password</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s12 center-align">
+                                <a class="waves-effect waves-light btn" id="formSubmit">SIGN UP</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <!-- Materialize JS -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+<!-- Materialize CSS -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet">
 
 <script src="app.js"></script>
 

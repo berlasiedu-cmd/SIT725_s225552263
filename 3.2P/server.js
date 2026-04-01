@@ -36,6 +36,7 @@ const recipes = [
   }
 ];
 
+
 // API endpoint
 app.get('/api/recipes', (req, res) => {
   res.json(recipes);
