@@ -52,11 +52,6 @@ document.querySelector("form").addEventListener("submit", async function(e) {
     confpassword: document.getElementById("confpassword").value
   };
 
-  document.addEventListener('DOMContentLoaded', function() {
-  var elems = document.querySelectorAll('.modal');
-  M.Modal.init(elems);
-  });
-
   try {
     const res = await fetch('/signup', {
       method: 'POST',
@@ -71,9 +66,6 @@ document.querySelector("form").addEventListener("submit", async function(e) {
     alert("Signup successful! "); 
 
     console.log(data);
-
-    var modal = M.Modal.getInstance(document.getElementById('signupForm'));
-    modal.close();
 
   } catch (err) {
     console.error(err);

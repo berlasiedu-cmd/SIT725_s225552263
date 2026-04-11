@@ -58,7 +58,7 @@ mongoose.connect('mongodb://127.0.0.1:27017/myprojectDB')
   .catch(err => console.log(err));
 
 
-// 2. Define your schema and model
+
 const ProjectSchema = new mongoose.Schema({
 title: String,
 image: String,
