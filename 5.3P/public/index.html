@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Get all book items</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 700px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+
+    #fetchBookItemsBtn {
+      background-color: #2c6fad;
+      color: white;
+      border: none;
+      padding: 10px 18px;
+      cursor: pointer;
+      font-size: 15px;
+      border-radius: 4px;
+    }
+
+    #fetchBookItemsBtn:hover {
+      background-color: #1e5a8e;
+    }
+
+    #bookItemsDisplay p {
+      cursor: pointer;
+      padding: 6px 8px;
+      margin: 4px 0;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+    }
+
+    #bookItemsDisplay p:hover,
+    #bookItemsDisplay p.selected {
+      background-color: #d0e4f7;
+    }
+
+    #bookDetail {
+      margin-top: 24px;
+      border: 1px solid #999;
+      padding: 16px;
+      border-radius: 4px;
+      background: #f9f9f9;
+      display: none;
+    }
+
+    #bookDetail h2 {
+      margin-top: 0;
+    }
+
+    #bookDetail table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    #bookDetail td {
+      padding: 6px 10px;
+      vertical-align: top;
+    }
+
+    #bookDetail td:first-child {
+      font-weight: bold;
+      width: 130px;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+  <h1>Books Catalogue developed by s225552263</h1>
+  <p>Click the button below to get all book items from the server:</p>
+  <button id="fetchBookItemsBtn">Get Book Items</button>
+
+  <div id="bookItemsDisplay"></div>
+  <div id="bookDetail"></div>
+
+  <script>
+    const btn = document.getElementById('fetchBookItemsBtn');
+    const out = document.getElementById('bookItemsDisplay');
+    const detail = document.getElementById('bookDetail');
+
+    // Render the list of books
+    function render(items) {
+      out.innerHTML = '';
+      detail.style.display = 'none';
+      detail.innerHTML = '';
+
+      if (!Array.isArray(items) || items.length === 0) {
+        out.textContent = 'No items';
+        return;
+      }
+
+      for (const it of items) {
+        const p = document.createElement('p');
+        const price =
+          typeof it.price === 'string'
+            ? it.price
+            : (it.price && it.price.$numberDecimal) || it.price || '';
+        // MongoDB uses 'title' field (matching bookModel.js)
+        p.textContent = `${it.title} - ${it.currency || 'AUD'} ${price}`;
+        p.dataset.id = it._id;
+
+        p.addEventListener('click', () => {
+          document.querySelectorAll('#bookItemsDisplay p').forEach(el => el.classList.remove('selected'));
+          p.classList.add('selected');
+          fetchBookDetail(it._id);
+        });
+
+        out.appendChild(p);
+      }
+    }
+
+    // Fetch and display a single book's details
+    async function fetchBookDetail(id) {
+      detail.innerHTML = 'Loading...';
+      detail.style.display = 'block';
+
+      try {
+        const res = await fetch(`/api/books/${id}`);
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const body = await res.json();
+        const book = body.data;
+
+        const price =
+          typeof book.price === 'string'
+            ? book.price
+            : (book.price && book.price.$numberDecimal) || book.price || '';
+
+        detail.innerHTML = `
+          <h2>Book Details</h2>
+          <table>
+            <tr><td>Title:</td>      <td>${book.title || ''}</td></tr>
+            <tr><td>Author:</td>     <td>${book.author || ''}</td></tr>
+            <tr><td>Year:</td>       <td>${book.year || ''}</td></tr>
+            <tr><td>Genre:</td>      <td>${book.genre || ''}</td></tr>
+            <tr><td>Summary:</td>    <td>${book.summary || ''}</td></tr>
+            <tr><td>Price (AUD):</td><td>${price}</td></tr>
+          </table>
+        `;
+      } catch (err) {
+        console.error('Error fetching book detail:', err);
+        detail.innerHTML = 'Error loading book details.';
+      }
+    }
+
+    // Fetch all books on button click
+    btn.addEventListener('click', async () => {
+      out.textContent = 'Loading...';
+      detail.style.display = 'none';
+      try {
+        const res = await fetch('/api/books');
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const body = await res.json();
+        render(body.data);
+      } catch (err) {
+        console.error('Error fetching book items:', err);
+        out.textContent = 'Error fetching book items.';
+      }
+    });
+  </script>
+</body>
+</html>

@@ -54,5 +54,3 @@ module.exports = {
   getBookById
 };
 
-//console.log("Searching ID:", id);
-//console.log("Books:", books);
