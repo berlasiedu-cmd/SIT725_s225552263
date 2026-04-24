@@ -1,0 +1,17 @@
+{
+  "name": "6.2c",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+   "start": "node server.js",
+    "test": "mocha"
+},
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs"
+}
