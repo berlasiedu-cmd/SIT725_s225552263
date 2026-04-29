@@ -5,9 +5,9 @@ function extractValidationMessages(err) {
 }
 
 // Get all books
-exports.getAllBook = async (req, res) => {
+exports.getAllBooks = async (req, res) => {
   try {
-    const items = await bookService.getAllBook();
+    const items = await bookService.getAllBooks();
     res.json({
       statusCode: 200,
       data: items,
